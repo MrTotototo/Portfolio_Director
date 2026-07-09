@@ -4,63 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio | Réalisateur</title>
+    
+    <script src="https://player.vimeo.com/api/player.js"></script>
+
     <style>
-        /* --- STYLE CSS --- */
         body {
             margin: 0;
+            background-color: #000000; /* Fond noir absolu */
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #121212; 
             color: #ffffff;
+            overflow-x: hidden;
         }
+
         header {
             text-align: center;
-            padding: 80px 20px 40px;
-            border-bottom: 1px solid #333;
+            padding: 120px 20px 60px;
         }
-        h1 {
-            font-size: 3em;
-            margin: 0 0 10px 0;
-            letter-spacing: 2px;
+        header h1 {
+            font-size: 2.5em;
+            letter-spacing: 4px;
             text-transform: uppercase;
-        }
-        p.subtitle {
-            color: #aaaaaa;
-            font-size: 1.2em;
             margin: 0;
             font-weight: 300;
         }
-        h2.section-title {
-            text-align: center;
-            font-size: 2em;
-            margin: 60px 0 20px;
-            letter-spacing: 1px;
-            color: #ffffff;
-            font-weight: 400;
+
+        /* --- GRILLE DE LA MOSAÏQUE --- */
+        .mosaic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-auto-rows: 250px;
+            grid-auto-flow: dense;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1600px;
+            margin: 0 auto 100px auto;
         }
 
-        /* --- GRILLE VIDÉOS --- */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .video-item {
-            background: #000000;
-            border-radius: 8px;
+        /* --- ÉLÉMENTS PHOTOS --- */
+        .mosaic-item {
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
-            transition: transform 0.3s ease;
+            z-index: 1;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        .video-item:hover {
-            transform: translateY(-5px); 
+        .mosaic-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
+        /* Effet de zoom sur les photos au survol */
+        .mosaic-item:hover {
+            transform: scale(1.12);
+            z-index: 10;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.9);
+        }
+
+        /* Formats de recadrage des photos */
+        .shape-1-1 { grid-column: span 1; grid-row: span 1; } /* Carré */
+        .shape-4-5 { grid-column: span 1; grid-row: span 2; } /* Portrait */
+        .shape-16-9 { grid-column: span 2; grid-row: span 1; } /* Paysage */
+        .shape-9-16 { grid-column: span 1; grid-row: span 2; } /* Vertical */
+
+        /* --- ÉLÉMENTS VIDÉOS (ESPACÉS) --- */
+        /* La vidéo prend toute la largeur de la grille pour casser le rythme et s'isoler */
+        .video-block {
+            grid-column: 1 / -1; 
+            grid-row: span 3; /* Donne de la hauteur à la section vidéo */
+            margin: 80px 0; /* Crée de grands espaces au-dessus/en-dessous */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        /* Taille du lecteur vidéo centré */
+        .video-container {
+            width: 100%;
+            max-width: 960px; /* Taille cinéma parfaite au centre */
+            box-shadow: 0 0 50px rgba(255,255,255,0.05);
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            opacity: 0.4; /* Légèrement transparent quand pas centré */
+            transform: scale(0.95);
+        }
+
+        /* Classe activée en JS quand la vidéo est parfaitement centrée au scroll */
+        .video-container.is-active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; 
+            padding-bottom: 56.25%; /* Ratio 16:9 */
             height: 0;
+            background: #000;
         }
         .video-wrapper iframe {
             position: absolute;
@@ -71,128 +109,159 @@
             border: none;
         }
         .video-title {
-            padding: 15px;
-            font-size: 1.1em;
-            text-align: center;
-            color: #dddddd;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-
-        /* --- GRILLE PHOTOS --- */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto 60px auto;
-        }
-        .photo-item {
-            width: 100%;
-            height: 250px; 
-            object-fit: cover; 
-            border-radius: 4px;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            cursor: pointer;
-        }
-        .photo-item:hover {
-            transform: scale(1.02);
-            opacity: 0.9;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: #080808;
-            color: #666666;
+            margin-top: 15px;
             font-size: 0.9em;
-            border-top: 1px solid #333;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #666666;
+            text-align: center;
+        }
+
+        /* Ajustements mobiles */
+        @media (max-width: 768px) {
+            .shape-16-9 { grid-column: span 1; grid-row: span 1; }
+            .shape-4-5, .shape-9-16 { grid-row: span 1; }
+            .video-block { grid-row: span 1; margin: 40px 0; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Mon Portfolio</h1>
-        <p class="subtitle">Réalisateur</p>
+        <h1>Portfolio</h1>
     </header>
 
     <main>
-        <h2 class="section-title">Réalisations</h2>
-        <div class="video-grid">
-            <div class="video-item">
-                <div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1208359041?title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
-                <div class="video-title">Pub Château</div>
-            </div>
-            <div class="video-item">
-                <div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1208359948?title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
-                <div class="video-title">Pub Train</div>
-            </div>
-            <div class="video-item">
-                <div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1208359283?title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
-                <div class="video-title">Pub 3</div>
-            </div>
-            <div class="video-item">
-                <div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1208359340?title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
-                <div class="video-title">Pub 4</div>
-            </div>
-            <div class="video-item">
-                <div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1208359248?title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
-                <div class="video-title">Pub 5</div>
-            </div>
-        </div>
-
-        <h2 class="section-title">Photographie & Stills</h2>
-        <div class="photo-grid">
-            <img src="gallery_8.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="gallery_10.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="gallery_15.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="gallery_16.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="gallery_17.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="gallery_19.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="gallery_21.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="gallery_23.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="gallery_25.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="gallery_27.jpg" alt="Still de réalisation" class="photo-item">
+        <div class="mosaic-grid">
             
-            <img src="gallery_37.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="gallery_41.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-02-08 165443_1.23.1_00000.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-02-08 165443_1.28.1_00000 2.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-02-08 165443_1.30.1_00000.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-02-08 165443_1.33.1_00000.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-02-08 165443_1.34.1_00000 2.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-02-08 165443_1.38.1_00000.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-02-08 165443_1.45.1_00000.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-02-08 165443_1.46.1_00000.jpg" alt="Still de réalisation" class="photo-item">
+            <div class="mosaic-item shape-16-9"><img src="gallery_8.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-4-5"><img src="gallery_10.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-1-1"><img src="gallery_15.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-9-16"><img src="gallery_16.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-1-1"><img src="gallery_19.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-16-9"><img src="gallery_17.jpg" alt="Still"></div>
 
-            <img src="Still 2026-07-09 114629_1.1.1.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-07-09 114629_1.1.2.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-07-09 114629_1.1.3.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-07-09 114629_1.1.4.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-07-09 114629_1.1.5.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-07-09 114629_1.1.6.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-07-09 114629_1.1.7.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-07-09 114629_1.1.8.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-07-09 114629_1.1.9.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-07-09 114629_1.1.10.jpg" alt="Still de réalisation" class="photo-item">
+            <div class="video-block">
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe src="https://player.vimeo.com/video/1208359041?muted=1&background=0&autoplay=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-title">Pub Château</div>
+                </div>
+            </div>
 
-            <img src="Still 2026-07-09 114629_1.1.11.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-07-09 114629_1.1.12.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="Still 2026-07-09 114629_1.1.13.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="STILLS_00000.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="STILLS_00002.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="STILLS_00004.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="STILLS_00005.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="STILLS_00006.jpg" alt="Still de réalisation" class="photo-item">
-            <img src="STILLS_00009.jpg" alt="Still de réalisation" class="photo-item">
+            <div class="mosaic-item shape-4-5"><img src="gallery_21.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-16-9"><img src="gallery_23.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-1-1"><img src="gallery_25.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-4-5"><img src="gallery_27.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-16-9"><img src="gallery_37.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-1-1"><img src="gallery_41.jpg" alt="Still"></div>
+
+            <div class="video-block">
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe src="https://player.vimeo.com/video/1208359948?muted=1&background=0&autoplay=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-title">Pub Train</div>
+                </div>
+            </div>
+
+            <div class="mosaic-item shape-9-16"><img src="Still 2026-02-08 165443_1.23.1_00000.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-16-9"><img src="Still 2026-02-08 165443_1.28.1_00000 2.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-4-5"><img src="Still 2026-02-08 165443_1.30.1_00000.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-1-1"><img src="Still 2026-02-08 165443_1.33.1_00000.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-16-9"><img src="Still 2026-02-08 165443_1.34.1_00000 2.jpg" alt="Still"></div>
+
+            <div class="video-block">
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe src="https://player.vimeo.com/video/1208359283?muted=1&background=0&autoplay=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-title">Pub 3</div>
+                </div>
+            </div>
+
+            <div class="mosaic-item shape-4-5"><img src="Still 2026-07-09 114629_1.1.1.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-1-1"><img src="Still 2026-07-09 114629_1.1.2.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-16-9"><img src="Still 2026-07-09 114629_1.1.4.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-9-16"><img src="STILLS_00000.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-1-1"><img src="STILLS_00002.jpg" alt="Still"></div>
+
+            <div class="video-block">
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe src="https://player.vimeo.com/video/1208359340?muted=1&background=0&autoplay=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-title">Pub 4</div>
+                </div>
+            </div>
+
+            <div class="mosaic-item shape-16-9"><img src="STILLS_00004.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-4-5"><img src="STILLS_00005.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-16-9"><img src="STILLS_00006.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-1-1"><img src="STILLS_00009.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-1-1"><img src="Still 2026-07-09 114629_1.1.11.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-4-5"><img src="Still 2026-07-09 114629_1.1.12.jpg" alt="Still"></div>
+
+            <div class="video-block">
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe src="https://player.vimeo.com/video/1208359248?muted=1&background=0&autoplay=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-title">Pub 5</div>
+                </div>
+            </div>
+
+            <div class="mosaic-item shape-16-9"><img src="Still 2026-07-09 114629_1.1.13.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-1-1"><img src="Still 2026-07-09 114629_1.1.3.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-4-5"><img src="Still 2026-07-09 114629_1.1.5.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-16-9"><img src="Still 2026-07-09 114629_1.1.6.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-1-1"><img src="Still 2026-07-09 114629_1.1.7.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-9-16"><img src="Still 2026-07-09 114629_1.1.8.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-16-9"><img src="Still 2026-07-09 114629_1.1.9.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-1-1"><img src="Still 2026-07-09 114629_1.1.10.jpg" alt="Still"></div>
+
         </div>
     </main>
 
-    <footer>
-        <p>© 2026 - Portfolio Réalisateur. Tous droits réservés.</p>
-    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoBlocks = document.querySelectorAll('.video-block');
+
+            // Config de détection : Déclenche quand l'élément occupe le centre de l'écran
+            const observerOptions = {
+                root: null,
+                rootMargin: '-25% 0px -25% 0px', /* Zone de focus au milieu de l'écran */
+                threshold: 0.4 /* La vidéo doit être visible à au moins 40% dans cette zone */
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const container = entry.target.querySelector('.video-container');
+                    const iframe = entry.target.querySelector('iframe');
+                    if (!iframe) return;
+                    
+                    // On initialise le contrôleur Vimeo pour cet iframe
+                    const player = new Vimeo.Player(iframe);
+
+                    if (entry.isIntersecting) {
+                        // La vidéo entre au milieu de l'écran
+                        container.classList.add('is-active');
+                        player.play().catch(error => {
+                            console.log("Lecture auto bloquée ou en attente d'interaction utilisateur.");
+                        });
+                    } else {
+                        // La vidéo sort du milieu de l'écran
+                        container.classList.remove('is-active');
+                        player.pause().catch(error => {});
+                    }
+                });
+            }, observerOptions);
+
+            // On demande au script de surveiller chaque bloc vidéo
+            videoBlocks.forEach(block => observer.observe(block));
+        });
+    </script>
 
 </body>
 </html>
