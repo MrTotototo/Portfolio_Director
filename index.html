@@ -64,6 +64,21 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.9);
         }
 
+        /* LABEL DU NOM DE FICHIER POUR LE DÉBOGAGE */
+        .filename-label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #00ffcc; /* Couleur bien voyante */
+            padding: 4px 8px;
+            font-size: 11px;
+            font-family: monospace;
+            border-radius: 3px;
+            pointer-events: none; /* Empêche le label de bloquer le survol de l'image */
+            z-index: 2;
+        }
+
         .shape-1-1 { grid-column: span 1; grid-row: span 1; } 
         .shape-4-5 { grid-column: span 1; grid-row: span 2; } 
         .shape-16-9 { grid-column: span 2; grid-row: span 1; } 
@@ -133,12 +148,30 @@
     <main>
         <div class="mosaic-grid">
             
-            <div class="mosaic-item shape-16-9"><img src="gallery_8.jpg" alt="Still"></div>
-            <div class="mosaic-item shape-4-5"><img src="gallery_10.jpg" alt="Still"></div>
-            <div class="mosaic-item shape-1-1"><img src="gallery_15.jpg" alt="Still"></div>
-            <div class="mosaic-item shape-9-16"><img src="gallery_16.jpg" alt="Still"></div>
-            <div class="mosaic-item shape-1-1"><img src="gallery_19.jpg" alt="Still"></div>
-            <div class="mosaic-item shape-16-9"><img src="gallery_17.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-16-9">
+                <img src="gallery_8.jpg" alt="Still">
+                <div class="filename-label">gallery_8.jpg</div>
+            </div>
+            <div class="mosaic-item shape-4-5">
+                <img src="gallery_10.jpg" alt="Still">
+                <div class="filename-label">gallery_10.jpg</div>
+            </div>
+            <div class="mosaic-item shape-1-1">
+                <img src="gallery_15.jpg" alt="Still">
+                <div class="filename-label">gallery_15.jpg</div>
+            </div>
+            <div class="mosaic-item shape-9-16">
+                <img src="gallery_16.jpg" alt="Still">
+                <div class="filename-label">gallery_16.jpg</div>
+            </div>
+            <div class="mosaic-item shape-1-1">
+                <img src="gallery_19.jpg" alt="Still">
+                <div class="filename-label">gallery_19.jpg</div>
+            </div>
+            <div class="mosaic-item shape-16-9">
+                <img src="gallery_17.jpg" alt="Still">
+                <div class="filename-label">gallery_17.jpg</div>
+            </div>
 
             <div class="video-block">
                 <div class="video-container">
@@ -147,12 +180,30 @@
                 </div>
             </div>
 
-            <div class="mosaic-item shape-4-5"><img src="gallery_21.jpg" alt="Still"></div>
-            <div class="mosaic-item shape-16-9"><img src="gallery_23.jpg" alt="Still"></div>
-            <div class="mosaic-item shape-1-1"><img src="gallery_25.jpg" alt="Still"></div>
-            <div class="mosaic-item shape-4-5"><img src="gallery_27.jpg" alt="Still"></div>
-            <div class="mosaic-item shape-16-9"><img src="gallery_37.jpg" alt="Still"></div>
-            <div class="mosaic-item shape-1-1"><img src="gallery_41.jpg" alt="Still"></div>
+            <div class="mosaic-item shape-4-5">
+                <img src="gallery_21.jpg" alt="Still">
+                <div class="filename-label">gallery_21.jpg</div>
+            </div>
+            <div class="mosaic-item shape-16-9">
+                <img src="gallery_23.jpg" alt="Still">
+                <div class="filename-label">gallery_23.jpg</div>
+            </div>
+            <div class="mosaic-item shape-1-1">
+                <img src="gallery_25.jpg" alt="Still">
+                <div class="filename-label">gallery_25.jpg</div>
+            </div>
+            <div class="mosaic-item shape-4-5">
+                <img src="gallery_27.jpg" alt="Still">
+                <div class="filename-label">gallery_27.jpg</div>
+            </div>
+            <div class="mosaic-item shape-16-9">
+                <img src="gallery_37.jpg" alt="Still">
+                <div class="filename-label">gallery_37.jpg</div>
+            </div>
+            <div class="mosaic-item shape-1-1">
+                <img src="gallery_41.jpg" alt="Still">
+                <div class="filename-label">gallery_41.jpg</div>
+            </div>
 
             <div class="video-block">
                 <div class="video-container">
@@ -161,11 +212,26 @@
                 </div>
             </div>
 
-            <div class="mosaic-item shape-9-16"><img src="STILLS_00000.png" alt="Still"></div>
-            <div class="mosaic-item shape-16-9"><img src="STILLS_00001.png" alt="Still"></div>
-            <div class="mosaic-item shape-4-5"><img src="STILLS_00002.png" alt="Still"></div>
-            <div class="mosaic-item shape-1-1"><img src="STILLS_00003.png" alt="Still"></div>
-            <div class="mosaic-item shape-16-9"><img src="STILLS_00004.png" alt="Still"></div>
+            <div class="mosaic-item shape-9-16">
+                <img src="STILLS_00000.png" alt="Still">
+                <div class="filename-label">STILLS_00000.png</div>
+            </div>
+            <div class="mosaic-item shape-16-9">
+                <img src="STILLS_00001_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00001_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-4-5">
+                <img src="STILLS_00002.png" alt="Still">
+                <div class="filename-label">STILLS_00002.png</div>
+            </div>
+            <div class="mosaic-item shape-1-1">
+                <img src="STILLS_00003_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00003_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-16-9">
+                <img src="STILLS_00004.png" alt="Still">
+                <div class="filename-label">STILLS_00004.png</div>
+            </div>
 
             <div class="video-block">
                 <div class="video-container">
@@ -173,81 +239,3 @@
                     <div class="video-title">Pub 3</div>
                 </div>
             </div>
-
-            <div class="mosaic-item shape-4-5"><img src="STILLS_00005.png" alt="Still"></div>
-            <div class="mosaic-item shape-1-1"><img src="STILLS_00006.png" alt="Still"></div>
-            <div class="mosaic-item shape-16-9"><img src="STILLS_00007.png" alt="Still"></div>
-            <div class="mosaic-item shape-9-16"><img src="STILLS_00008.png" alt="Still"></div>
-            <div class="mosaic-item shape-1-1"><img src="STILLS_00009.png" alt="Still"></div>
-
-            <div class="video-block">
-                <div class="video-container">
-                    <div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1208359340?muted=1&background=0&autoplay=0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
-                    <div class="video-title">Pub 4</div>
-                </div>
-            </div>
-
-            <div class="mosaic-item shape-16-9"><img src="STILLS_00010.png" alt="Still"></div>
-            <div class="mosaic-item shape-4-5"><img src="STILLS_00011.png" alt="Still"></div>
-            <div class="mosaic-item shape-16-9"><img src="STILLS_00012.png" alt="Still"></div>
-            <div class="mosaic-item shape-1-1"><img src="STILLS_00013.png" alt="Still"></div>
-            <div class="mosaic-item shape-1-1"><img src="STILLS_00014.png" alt="Still"></div>
-            <div class="mosaic-item shape-4-5"><img src="STILLS_00015.png" alt="Still"></div>
-
-            <div class="video-block">
-                <div class="video-container">
-                    <div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1208359248?muted=1&background=0&autoplay=0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
-                    <div class="video-title">Pub 5</div>
-                </div>
-            </div>
-
-            <div class="mosaic-item shape-16-9"><img src="STILLS_00016.png" alt="Still"></div>
-            <div class="mosaic-item shape-1-1"><img src="STILLS_00017.png" alt="Still"></div>
-            <div class="mosaic-item shape-4-5"><img src="STILLS_00018.png" alt="Still"></div>
-            <div class="mosaic-item shape-16-9"><img src="STILLS_00019.png" alt="Still"></div>
-            <div class="mosaic-item shape-1-1"><img src="STILLS_00020.png" alt="Still"></div>
-            <div class="mosaic-item shape-9-16"><img src="STILLS_00021.png" alt="Still"></div>
-            <div class="mosaic-item shape-16-9"><img src="STILLS_00022.png" alt="Still"></div>
-            <div class="mosaic-item shape-1-1"><img src="STILLS_00023.png" alt="Still"></div>
-            <div class="mosaic-item shape-4-5"><img src="STILLS_00024.png" alt="Still"></div>
-            <div class="mosaic-item shape-1-1"><img src="STILLS_00025.png" alt="Still"></div>
-            <div class="mosaic-item shape-16-9"><img src="STILLS_00026.png" alt="Still"></div>
-
-        </div>
-    </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const videoBlocks = document.querySelectorAll('.video-block');
-            const observerOptions = {
-                root: null,
-                rootMargin: '-25% 0px -25% 0px',
-                threshold: 0.4
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const container = entry.target.querySelector('.video-container');
-                    const iframe = entry.target.querySelector('iframe');
-                    if (!iframe) return;
-                    
-                    const player = new Vimeo.Player(iframe);
-
-                    if (entry.isIntersecting) {
-                        container.classList.add('is-active');
-                        player.play().catch(error => {
-                            console.log("Lecture en attente d'interaction.");
-                        });
-                    } else {
-                        container.classList.remove('is-active');
-                        player.pause().catch(error => {});
-                    }
-                });
-            }, observerOptions);
-
-            videoBlocks.forEach(block => observer.observe(block));
-        });
-    </script>
-
-</body>
-</html>
