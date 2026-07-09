@@ -239,3 +239,147 @@
                     <div class="video-title">Pub 3</div>
                 </div>
             </div>
+
+            <div class="mosaic-item shape-4-5">
+                <img src="STILLS_00005.png" alt="Still">
+                <div class="filename-label">STILLS_00005.png</div>
+            </div>
+            <div class="mosaic-item shape-1-1">
+                <img src="STILLS_00006.png" alt="Still">
+                <div class="filename-label">STILLS_00006.png</div>
+            </div>
+            <div class="mosaic-item shape-16-9">
+                <img src="STILLS_00007_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00007_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-9-16">
+                <img src="STILLS_00008_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00008_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-1-1">
+                <img src="STILLS_00009.png" alt="Still">
+                <div class="filename-label">STILLS_00009.png</div>
+            </div>
+
+            <div class="video-block">
+                <div class="video-container">
+                    <div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1208359340?muted=1&background=0&autoplay=0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
+                    <div class="video-title">Pub 4</div>
+                </div>
+            </div>
+
+            <div class="mosaic-item shape-16-9">
+                <img src="STILLS_00010_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00010_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-4-5">
+                <img src="STILLS_00011_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00011_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-16-9">
+                <img src="STILLS_00012_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00012_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-1-1">
+                <img src="STILLS_00013_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00013_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-1-1">
+                <img src="STILLS_00014_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00014_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-4-5">
+                <img src="STILLS_00015_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00015_00000.jpg</div>
+            </div>
+
+            <div class="video-block">
+                <div class="video-container">
+                    <div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1208359248?muted=1&background=0&autoplay=0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
+                    <div class="video-title">Pub 5</div>
+                </div>
+            </div>
+
+            <div class="mosaic-item shape-16-9">
+                <img src="STILLS_00016_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00016_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-1-1">
+                <img src="STILLS_00017_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00017_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-4-5">
+                <img src="STILLS_00018_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00018_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-16-9">
+                <img src="STILLS_00019_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00019_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-1-1">
+                <img src="STILLS_00020_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00020_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-9-16">
+                <img src="STILLS_00021_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00021_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-16-9">
+                <img src="STILLS_00022_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00022_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-1-1">
+                <img src="STILLS_00023_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00023_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-4-5">
+                <img src="STILLS_00024_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00024_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-1-1">
+                <img src="STILLS_00025_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00025_00000.jpg</div>
+            </div>
+            <div class="mosaic-item shape-16-9">
+                <img src="STILLS_00026_00000.jpg" alt="Still">
+                <div class="filename-label">STILLS_00026_00000.jpg</div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoBlocks = document.querySelectorAll('.video-block');
+            const observerOptions = {
+                root: null,
+                rootMargin: '-25% 0px -25% 0px',
+                threshold: 0.4
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const container = entry.target.querySelector('.video-container');
+                    const iframe = entry.target.querySelector('iframe');
+                    if (!iframe) return;
+                    
+                    const player = new Vimeo.Player(iframe);
+
+                    if (entry.isIntersecting) {
+                        container.classList.add('is-active');
+                        player.play().catch(error => {
+                            console.log("Lecture en attente d'interaction.");
+                        });
+                    } else {
+                        container.classList.remove('is-active');
+                        player.pause().catch(error => {});
+                    }
+                });
+            }, observerOptions);
+
+            videoBlocks.forEach(block => observer.observe(block));
+        });
+    </script>
+
+</body>
+</html>
