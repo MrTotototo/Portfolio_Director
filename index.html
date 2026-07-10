@@ -13,8 +13,7 @@
             text-align: center; 
             padding: 40px 0; 
             z-index: 999; 
-            /* Ajout d'un léger dégradé noir pour que le menu reste lisible sur les photos */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
         }
         .glitch { font-family: 'Syne', sans-serif; font-size: 5em; font-weight: 800; text-transform: uppercase; cursor: pointer; margin: 0 0 10px 0; color: #fff; }
         .glitch:hover { animation: glitch 0.3s infinite; }
@@ -23,37 +22,44 @@
         nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 1.2rem; font-weight: 800; transition: 0.3s; font-family: 'Syne', sans-serif; }
         nav a:hover { color: #ff0000; }
 
-        /* Mosaïque Murale (Aucun espace, remplit l'écran) */
+        /* Mosaïque Mur d'images - Zéro espace, dense, remplit l'écran */
         .mosaic-grid { 
-            display: flex; 
-            flex-wrap: wrap; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-auto-rows: 240px;
+            grid-auto-flow: dense; /* Force les images à combler le moindre trou vide */
+            gap: 0; /* Supprime strictement tout espace ou ligne noire entre les photos */
             width: 100%;
-            padding-top: 180px; /* Laisse la place au menu */
+            padding-top: 180px; /* Espace pour le menu */
         }
         
         .item { 
-            flex-grow: 1; /* Permet aux images de s'étirer pour combler les trous */
-            flex-basis: 400px; /* Largeur de base d'une photo */
-            height: 350px; /* Hauteur fixe d'une ligne */
             position: relative; 
-            overflow: visible; /* Permet le débordement au survol */
+            background-color: #000;
+            overflow: visible; /* Permet le zoom par-dessus les voisins */
         }
+
+        /* Variantes pour casser la monotonie et créer des images plus grandes */
+        .item.large-w { grid-column: span 2; }
+        .item.large-h { grid-row: span 2; }
+        .item.large-both { grid-column: span 2; grid-row: span 2; }
         
         .item img { 
             width: 100%; 
             height: 100%; 
-            object-fit: cover; /* Recadre proprement sans déformer */
-            transition: transform 0.3s ease, z-index 0.3s ease, box-shadow 0.3s ease;
+            object-fit: cover; 
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), z-index 0.3s step-start, box-shadow 0.3s ease;
             position: relative;
             z-index: 1;
             cursor: pointer;
+            display: block;
         }
         
-        /* Effet de survol */
+        /* Effet au survol : passe magnifiquement au-dessus du mur */
         .item:hover img { 
-            transform: scale(1.15); 
+            transform: scale(1.12); 
             z-index: 10; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9);
         }
 
         /* Lightbox */
@@ -64,7 +70,8 @@
         .nav-btn:hover { color: #ff0000; }
 
         @media (max-width: 768px) {
-            .item { height: 200px; flex-basis: 100%; }
+            .mosaic-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); grid-auto-rows: 140px; padding-top: 160px; }
+            .item.large-w, .item.large-h, .item.large-both { grid-column: span 1; grid-row: span 1; }
             .glitch { font-size: 3em; }
         }
     </style>
@@ -81,46 +88,46 @@
     </header>
 
     <div class="mosaic-grid" id="grid">
-        <div class="item"><img src="STILLS_00010_00000.jpg" onclick="openLB('STILLS_00010_00000.jpg')"></div>
+        <div class="item large-w"><img src="STILLS_00010_00000.jpg" onclick="openLB('STILLS_00010_00000.jpg')"></div>
         <div class="item"><img src="STILLS_00019_00000.jpg" onclick="openLB('STILLS_00019_00000.jpg')"></div>
         <div class="item"><img src="3.jpg" onclick="openLB('3.jpg')"></div>
-        <div class="item"><img src="STILLS_00025_00000.jpg" onclick="openLB('STILLS_00025_00000.jpg')"></div>
+        <div class="item large-both"><img src="STILLS_00025_00000.jpg" onclick="openLB('STILLS_00025_00000.jpg')"></div>
         <div class="item"><img src="STILLS_00016_00000.jpg" onclick="openLB('STILLS_00016_00000.jpg')"></div>
-        <div class="item"><img src="gallery_8.jpg" onclick="openLB('gallery_8.jpg')"></div>
+        <div class="item large-w"><img src="gallery_8.jpg" onclick="openLB('gallery_8.jpg')"></div>
         <div class="item"><img src="STILLS_00000.png" onclick="openLB('STILLS_00000.png')"></div>
-        <div class="item"><img src="STILLS_00001_00000.jpg" onclick="openLB('STILLS_00001_00000.jpg')"></div>
+        <div class="item large-h"><img src="STILLS_00001_00000.jpg" onclick="openLB('STILLS_00001_00000.jpg')"></div>
         <div class="item"><img src="STILLS_00023_00000.jpg" onclick="openLB('STILLS_00023_00000.jpg')"></div>
-        <div class="item"><img src="gallery_10.jpg" onclick="openLB('gallery_10.jpg')"></div>
+        <div class="item large-w"><img src="gallery_10.jpg" onclick="openLB('gallery_10.jpg')"></div>
         <div class="item"><img src="STILLS_00012_00000.jpg" onclick="openLB('STILLS_00012_00000.jpg')"></div>
-        <div class="item"><img src="STILLS_00002.png" onclick="openLB('STILLS_00002.png')"></div>
+        <div class="item large-both"><img src="STILLS_00002.png" onclick="openLB('STILLS_00002.png')"></div>
         <div class="item"><img src="STILLS_00017_00000.jpg" onclick="openLB('STILLS_00017_00000.jpg')"></div>
-        <div class="item"><img src="gallery_15.jpg" onclick="openLB('gallery_15.jpg')"></div>
+        <div class="item large-w"><img src="gallery_15.jpg" onclick="openLB('gallery_15.jpg')"></div>
         <div class="item"><img src="STILLS_00003_00000.jpg" onclick="openLB('STILLS_00003_00000.jpg')"></div>
-        <div class="item"><img src="STILLS_00020_00000.jpg" onclick="openLB('STILLS_00020_00000.jpg')"></div>
+        <div class="item large-h"><img src="STILLS_00020_00000.jpg" onclick="openLB('STILLS_00020_00000.jpg')"></div>
         <div class="item"><img src="gallery_16.jpg" onclick="openLB('gallery_16.jpg')"></div>
-        <div class="item"><img src="STILLS_00018_00000.jpg" onclick="openLB('STILLS_00018_00000.jpg')"></div>
+        <div class="item large-w"><img src="STILLS_00018_00000.jpg" onclick="openLB('STILLS_00018_00000.jpg')"></div>
         <div class="item"><img src="STILLS_00004.png" onclick="openLB('STILLS_00004.png')"></div>
         <div class="item"><img src="STILLS_00014_00000.jpg" onclick="openLB('STILLS_00014_00000.jpg')"></div>
-        <div class="item"><img src="gallery_17.jpg" onclick="openLB('gallery_17.jpg')"></div>
+        <div class="item large-w"><img src="gallery_17.jpg" onclick="openLB('gallery_17.jpg')"></div>
         <div class="item"><img src="STILLS_00026_00000.jpg" onclick="openLB('STILLS_00026_00000.jpg')"></div>
-        <div class="item"><img src="STILLS_00005.png" onclick="openLB('STILLS_00005.png')"></div>
+        <div class="item large-h"><img src="STILLS_00005.png" onclick="openLB('STILLS_00005.png')"></div>
         <div class="item"><img src="gallery_19.jpg" onclick="openLB('gallery_19.jpg')"></div>
-        <div class="item"><img src="STILLS_00013_00000.jpg" onclick="openLB('STILLS_00013_00000.jpg')"></div>
+        <div class="item large-w"><img src="STILLS_00013_00000.jpg" onclick="openLB('STILLS_00013_00000.jpg')"></div>
         <div class="item"><img src="STILLS_00006.png" onclick="openLB('STILLS_00006.png')"></div>
-        <div class="item"><img src="gallery_21.jpg" onclick="openLB('gallery_21.jpg')"></div>
+        <div class="item large-both"><img src="gallery_21.jpg" onclick="openLB('gallery_21.jpg')"></div>
         <div class="item"><img src="STILLS_00007_00000.jpg" onclick="openLB('STILLS_00007_00000.jpg')"></div>
-        <div class="item"><img src="STILLS_00024_00000.jpg" onclick="openLB('STILLS_00024_00000.jpg')"></div>
+        <div class="item large-w"><img src="STILLS_00024_00000.jpg" onclick="openLB('STILLS_00024_00000.jpg')"></div>
         <div class="item"><img src="gallery_23.jpg" onclick="openLB('gallery_23.jpg')"></div>
         <div class="item"><img src="STILLS_00008_00000.jpg" onclick="openLB('STILLS_00008_00000.jpg')"></div>
-        <div class="item"><img src="gallery_25.jpg" onclick="openLB('gallery_25.jpg')"></div>
+        <div class="item large-w"><img src="gallery_25.jpg" onclick="openLB('gallery_25.jpg')"></div>
         <div class="item"><img src="1.jpg" onclick="openLB('1.jpg')"></div>
-        <div class="item"><img src="STILLS_00009.png" onclick="openLB('STILLS_00009.png')"></div>
+        <div class="item large-h"><img src="STILLS_00009.png" onclick="openLB('STILLS_00009.png')"></div>
         <div class="item"><img src="gallery_27.jpg" onclick="openLB('gallery_27.jpg')"></div>
-        <div class="item"><img src="gallery_37.jpg" onclick="openLB('gallery_37.jpg')"></div>
+        <div class="item large-w"><img src="gallery_37.jpg" onclick="openLB('gallery_37.jpg')"></div>
         <div class="item"><img src="STILLS_00011_00000.jpg" onclick="openLB('STILLS_00011_00000.jpg')"></div>
-        <div class="item"><img src="gallery_41.jpg" onclick="openLB('gallery_41.jpg')"></div>
+        <div class="item large-h"><img src="gallery_41.jpg" onclick="openLB('gallery_41.jpg')"></div>
         <div class="item"><img src="STILLS_00021_00000.jpg" onclick="openLB('STILLS_00021_00000.jpg')"></div>
-        <div class="item"><img src="2.jpg" onclick="openLB('2.jpg')"></div>
+        <div class="item large-w"><img src="2.jpg" onclick="openLB('2.jpg')"></div>
     </div>
 
     <div id="lightbox" onclick="this.classList.remove('active')">
