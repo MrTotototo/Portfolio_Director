@@ -15,11 +15,12 @@
         }
         
         header { 
-            position: absolute; /* Fixe le menu par-dessus la vidéo */
+            position: absolute; 
             top: 0; left: 0; width: 100%;
             text-align: center; 
             padding: 40px 0; 
-            z-index: 10; 
+            /* CORRECTION 1 : On force le menu à passer par-dessus tout le reste */
+            z-index: 999; 
         }
         .glitch { font-family: 'Syne', sans-serif; font-size: 5em; font-weight: 800; text-transform: uppercase; cursor: pointer; margin: 0 0 10px 0; color: #fff;}
         .glitch:hover { animation: glitch 0.3s infinite; }
@@ -35,9 +36,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Remplit l'écran, va couper un peu le haut/bas sur PC */
+            object-fit: cover;
             z-index: 0;
-            filter: brightness(0.4); /* Assombrit la vidéo pour que le mail reste lisible */
+            filter: brightness(0.4); 
         }
 
         /* Conteneur de l'email centré */
@@ -48,6 +49,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            /* CORRECTION 2 : Empêche la boite invisible de bloquer les clics */
+            pointer-events: none;
         }
 
         .contact-content a {
@@ -56,10 +59,8 @@
             text-decoration: none;
             font-weight: bold;
             transition: 0.3s;
-        }
-        
-        .contact-content a:hover {
-            color: #ff0000;
+            /* CORRECTION 3 : Réactive le clic uniquement sur le texte du mail */
+            pointer-events: auto;
         }
         
         @media (max-width: 768px) {
