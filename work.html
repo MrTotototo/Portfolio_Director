@@ -3,24 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Portfolio | Work</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;800&display=swap" rel="stylesheet">
     <style>
         body, html { margin: 0; padding: 0; height: 100%; background: #000; color: #fff; font-family: sans-serif; overflow: hidden; }
         
+        /* BLOC HEADER STRICTEMENT IDENTIQUE POUR LES 4 PAGES */
         header { 
             position: absolute; 
             top: 0; left: 0; width: 100%;
             text-align: center; 
             padding: 40px 0; 
             z-index: 999; 
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+            pointer-events: none; 
         }
-        .glitch { font-family: 'Syne', sans-serif; font-size: 5em; font-weight: 800; text-transform: uppercase; cursor: pointer; margin: 0 0 10px 0; color: #fff; }
+        .glitch, nav a { pointer-events: auto; } 
+        
+        .glitch { font-family: 'Syne', sans-serif; font-size: 5em; font-weight: 800; text-transform: uppercase; cursor: pointer; margin: 0 0 10px 0; color: #fff; text-shadow: 0 4px 10px rgba(0,0,0,0.8); }
         .glitch:hover { animation: glitch 0.3s infinite; }
         @keyframes glitch { 0% { color: #fff; text-shadow: 2px 0 red; } 50% { color: #fff; text-shadow: -2px 0 cyan; } 100% { color: #fff; text-shadow: 2px 0 red; } }
         
-        nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 1.2rem; transition: 0.3s; font-family: 'Syne', sans-serif; }
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 1.2rem; font-weight: 800; transition: 0.3s; font-family: 'Syne', sans-serif; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
         nav a:hover { color: #ff0000; }
+        /* FIN DU BLOC HEADER */
 
         .work-wrapper {
             height: 100%;
@@ -30,7 +35,6 @@
             position: relative;
         }
 
-        /* Viewport très large pour laisser déborder les vidéos latérales */
         .slider-viewport {
             display: flex;
             align-items: center;
@@ -45,16 +49,14 @@
             transition: opacity 0.4s ease;
         }
 
-        /* Player central immense */
         .video-box.main {
             width: 65vw; 
-            flex-shrink: 0; /* Empêche l'écrasement */
+            flex-shrink: 0; 
             opacity: 1;
             z-index: 5;
             box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
 
-        /* Vidéos sur les côtés beaucoup plus grandes */
         .video-box.side {
             width: 35vw; 
             flex-shrink: 0;
@@ -123,7 +125,6 @@
     </div>
 
     <script>
-        /* Les liens incluent la tentative de masquage de l'interface Vimeo */
         const vimeoVideos = [
             "https://player.vimeo.com/video/1208359041?title=0&byline=0&portrait=0", 
             "https://player.vimeo.com/video/1208359948?title=0&byline=0&portrait=0", 
