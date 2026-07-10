@@ -2,38 +2,69 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Portfolio | Réalisateur</title>
+    <title>Portfolio | Photos</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap" rel="stylesheet">
     <style>
-    body { margin: 0; background: #000; color: #fff; font-family: sans-serif; }
-    header { text-align: center; padding: 40px 20px; }
-    
-    .mosaic-grid { 
-        display: grid; 
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
-        grid-auto-rows: 300px; /* Force une hauteur uniforme */
-        grid-auto-flow: dense; /* Remplit les trous intelligemment */
-        gap: 10px; 
-        padding: 10px; 
-        max-width: 1400px; 
-        margin: 0 auto; 
-    }
-    
-    .item { overflow: hidden; cursor: pointer; }
-    .item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-    .item:hover img { transform: scale(1.05); }
-    
-    .video-item { grid-column: span 2; grid-row: span 2; background: #000; }
-    .video-item iframe { width: 100%; height: 100%; border: none; }
-    
-    /* Le reste (glitch, lightbox) reste identique */
-</style>
+        body { margin: 0; background: #000; color: #fff; font-family: sans-serif; overflow-x: hidden; }
+        header { text-align: center; padding: 40px 20px; }
+        .glitch { font-family: 'Syne', sans-serif; font-size: 5em; font-weight: 800; text-transform: uppercase; cursor: pointer; margin-bottom: 10px; }
+        .glitch:hover { animation: glitch 0.3s infinite; }
+        @keyframes glitch { 0% { color: #fff; text-shadow: 2px 0 red; } 50% { color: #fff; text-shadow: -2px 0 cyan; } 100% { color: #fff; text-shadow: 2px 0 red; } }
+        
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 1.2rem; transition: 0.3s; font-family: 'Syne', sans-serif;}
+        nav a:hover { color: #ff0000; }
+
+        /* Grille Photos */
+        .mosaic-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); /* 2 colonnes comme sur ta capture */
+            gap: 0; /* Pas d'espace entre les images pour l'effet bloc */
+            width: 100%;
+        }
+        
+        .item { 
+            position: relative; 
+            aspect-ratio: 16 / 9; /* Force toutes les photos à avoir exactement la même taille */
+        }
+        
+        .item img { 
+            position: absolute; 
+            top: 0; left: 0;
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.3s ease, z-index 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1;
+            cursor: pointer;
+        }
+        
+        /* Effet de survol : grossit et passe au-dessus */
+        .item:hover img { 
+            transform: scale(1.1); 
+            z-index: 10; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
+
+        /* Lightbox */
+        #lightbox { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 1000; align-items: center; justify-content: center; }
+        #lightbox.active { display: flex; }
+        #lightbox img { max-width: 85%; max-height: 85%; object-fit: contain; }
+        .nav-btn { position: absolute; top: 50%; color: white; font-size: 3em; cursor: pointer; background: none; border: none; padding: 20px; z-index: 1001; transform: translateY(-50%); }
+
+        @media (max-width: 768px) {
+            .mosaic-grid { grid-template-columns: 1fr; } /* 1 seule colonne sur téléphone */
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <h1 class="glitch" onclick="location.reload()">PORTFOLIO</h1>
-        <a href="contact.html" style="color:white; text-decoration:none;">CONTACT</a>
+        <h1 class="glitch" onclick="window.location.href='index.html'">PORTFOLIO</h1>
+        <nav>
+            <a href="index.html" style="color:gray;">PHOTOS</a>
+            <a href="work.html">WORK</a>
+            <a href="contact.html">CONTACT</a>
+        </nav>
     </header>
 
     <div class="mosaic-grid" id="grid">
@@ -41,13 +72,11 @@
         <div class="item"><img src="STILLS_00016_00000.jpg" onclick="openLB('STILLS_00016_00000.jpg')"></div>
         <div class="item"><img src="gallery_8.jpg" onclick="openLB('gallery_8.jpg')"></div>
         <div class="item"><img src="STILLS_00000.png" onclick="openLB('STILLS_00000.png')"></div>
-        <div class="video-item"><iframe src="https://player.vimeo.com/video/1208359041"></iframe></div>
         <div class="item"><img src="STILLS_00001_00000.jpg" onclick="openLB('STILLS_00001_00000.jpg')"></div>
         <div class="item"><img src="STILLS_00023_00000.jpg" onclick="openLB('STILLS_00023_00000.jpg')"></div>
         <div class="item"><img src="gallery_10.jpg" onclick="openLB('gallery_10.jpg')"></div>
         <div class="item"><img src="STILLS_00012_00000.jpg" onclick="openLB('STILLS_00012_00000.jpg')"></div>
         <div class="item"><img src="STILLS_00002.png" onclick="openLB('STILLS_00002.png')"></div>
-        <div class="video-item"><iframe src="https://player.vimeo.com/video/1208359948"></iframe></div>
         <div class="item"><img src="gallery_15.jpg" onclick="openLB('gallery_15.jpg')"></div>
         <div class="item"><img src="STILLS_00003_00000.jpg" onclick="openLB('STILLS_00003_00000.jpg')"></div>
         <div class="item"><img src="gallery_16.jpg" onclick="openLB('gallery_16.jpg')"></div>
@@ -58,7 +87,6 @@
         <div class="item"><img src="gallery_19.jpg" onclick="openLB('gallery_19.jpg')"></div>
         <div class="item"><img src="STILLS_00013_00000.jpg" onclick="openLB('STILLS_00013_00000.jpg')"></div>
         <div class="item"><img src="STILLS_00006.png" onclick="openLB('STILLS_00006.png')"></div>
-        <div class="video-item"><iframe src="https://player.vimeo.com/video/1208359340"></iframe></div>
         <div class="item"><img src="gallery_21.jpg" onclick="openLB('gallery_21.jpg')"></div>
         <div class="item"><img src="STILLS_00007_00000.jpg" onclick="openLB('STILLS_00007_00000.jpg')"></div>
         <div class="item"><img src="STILLS_00024_00000.jpg" onclick="openLB('STILLS_00024_00000.jpg')"></div>
@@ -71,13 +99,11 @@
         <div class="item"><img src="gallery_37.jpg" onclick="openLB('gallery_37.jpg')"></div>
         <div class="item"><img src="STILLS_00011_00000.jpg" onclick="openLB('STILLS_00011_00000.jpg')"></div>
         <div class="item"><img src="gallery_41.jpg" onclick="openLB('gallery_41.jpg')"></div>
-        <div class="video-item"><iframe src="https://player.vimeo.com/video/1208359283"></iframe></div>
         <div class="item"><img src="STILLS_00014_00000.jpg" onclick="openLB('STILLS_00014_00000.jpg')"></div>
         <div class="item"><img src="STILLS_00018_00000.jpg" onclick="openLB('STILLS_00018_00000.jpg')"></div>
         <div class="item"><img src="STILLS_00019_00000.jpg" onclick="openLB('STILLS_00019_00000.jpg')"></div>
         <div class="item"><img src="STILLS_00020_00000.jpg" onclick="openLB('STILLS_00020_00000.jpg')"></div>
         <div class="item"><img src="STILLS_00021_00000.jpg" onclick="openLB('STILLS_00021_00000.jpg')"></div>
-        <div class="video-item"><iframe src="https://player.vimeo.com/video/1208359248"></iframe></div>
         <div class="item"><img src="STILLS_00022_00000.jpg" onclick="openLB('STILLS_00022_00000.jpg')"></div>
         <div class="item"><img src="STILLS_00017_00000.jpg" onclick="openLB('STILLS_00017_00000.jpg')"></div>
     </div>
