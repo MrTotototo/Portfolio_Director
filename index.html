@@ -6,21 +6,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap" rel="stylesheet">
     <style>
         body { margin: 0; background: #000; color: #fff; font-family: sans-serif; overflow-x: hidden; }
-        header { text-align: center; padding: 40px 20px; }
-        .glitch { font-family: 'Syne', sans-serif; font-size: 5em; font-weight: 800; text-transform: uppercase; cursor: pointer; margin-bottom: 10px; }
+        
+        /* Menu identique sur toutes les pages */
+        header { 
+            position: absolute; 
+            top: 0; left: 0; width: 100%;
+            text-align: center; 
+            padding: 40px 0; 
+            z-index: 999; 
+        }
+        .glitch { font-family: 'Syne', sans-serif; font-size: 5em; font-weight: 800; text-transform: uppercase; cursor: pointer; margin: 0 0 10px 0; color: #fff; }
         .glitch:hover { animation: glitch 0.3s infinite; }
         @keyframes glitch { 0% { color: #fff; text-shadow: 2px 0 red; } 50% { color: #fff; text-shadow: -2px 0 cyan; } 100% { color: #fff; text-shadow: 2px 0 red; } }
         
-        nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 1.2rem; transition: 0.3s; font-family: 'Syne', sans-serif;}
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 1.2rem; font-weight: 800; transition: 0.3s; font-family: 'Syne', sans-serif; }
         nav a:hover { color: #ff0000; }
 
-        /* Belle Mosaïque Multi-colonnes (Photos compactes et élégantes) */
+        /* Mosaïque avec taille doublée */
         .mosaic-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 15px; 
-            padding: 20px; 
-            max-width: 1600px; 
+            grid-template-columns: repeat(auto-fill, minmax(560px, 1fr)); /* Taille doublée */
+            gap: 20px; 
+            padding: 200px 20px 40px 20px; /* padding-top pour laisser la place au menu fixe */
+            max-width: 1800px; 
             margin: 0 auto; 
         }
         
@@ -28,10 +36,9 @@
             position: relative; 
             aspect-ratio: 16 / 9; 
             background-color: #000;
-            overflow: visible; /* Indispensable pour permettre le zoom au survol */
+            overflow: visible; 
         }
         
-        /* Alignement parfait au format 4/3 centré */
         .item img { 
             position: absolute; 
             top: 0; 
@@ -45,14 +52,13 @@
             cursor: pointer;
         }
         
-        /* Effet de survol : l'image s'agrandit et passe au-dessus des autres cases */
         .item:hover img { 
-            transform: translateX(-50%) scale(1.15); 
+            transform: translateX(-50%) scale(1.1); 
             z-index: 10; 
             box-shadow: 0 20px 40px rgba(0,0,0,0.9);
         }
 
-        /* Lightbox plein écran */
+        /* Lightbox */
         #lightbox { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 1000; align-items: center; justify-content: center; }
         #lightbox.active { display: flex; }
         #lightbox img { max-width: 85%; max-height: 85%; object-fit: contain; }
@@ -60,7 +66,7 @@
         .nav-btn:hover { color: #ff0000; }
 
         @media (max-width: 768px) {
-            .mosaic-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; padding: 10px; }
+            .mosaic-grid { grid-template-columns: 1fr; padding-top: 180px; }
             .glitch { font-size: 3em; }
         }
     </style>
