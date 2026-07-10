@@ -5,66 +5,66 @@
     <title>Portfolio | Stills</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; background: #000; color: #fff; font-family: sans-serif; overflow-x: hidden; }
+        /* On supprime toutes les marges pour que la grille touche les bords de l'écran */
+        body { margin: 0; padding: 0; background: #000; color: #fff; font-family: sans-serif; overflow-x: hidden; }
         
         header { 
-            position: absolute; 
+            position: absolute; /* Le menu flotte au-dessus de la page */
             top: 0; left: 0; width: 100%;
             text-align: center; 
             padding: 40px 0; 
             z-index: 999; 
-            /* Dégradé subtil pour garder les titres lisibles par-dessus les images */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 100%);
-            pointer-events: none; /* Laisse passer les clics à travers le header transparent */
+            /* Dégradé subtil et ombre portée pour que le texte reste lisible même sur une photo blanche */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            pointer-events: none; /* Empêche le dégradé invisible de bloquer les clics sur les photos */
         }
-        .glitch, nav a { pointer-events: auto; } /* Réactive les clics uniquement sur les boutons */
+        .glitch, nav a { pointer-events: auto; } /* Réactive le clic uniquement sur le texte */
         
-        .glitch { font-family: 'Syne', sans-serif; font-size: 5em; font-weight: 800; text-transform: uppercase; cursor: pointer; margin: 0 0 10px 0; color: #fff; }
+        .glitch { font-family: 'Syne', sans-serif; font-size: 5em; font-weight: 800; text-transform: uppercase; cursor: pointer; margin: 0 0 10px 0; color: #fff; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
         .glitch:hover { animation: glitch 0.3s infinite; }
         @keyframes glitch { 0% { color: #fff; text-shadow: 2px 0 red; } 50% { color: #fff; text-shadow: -2px 0 cyan; } 100% { color: #fff; text-shadow: 2px 0 red; } }
         
-        nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 1.2rem; font-weight: 800; transition: 0.3s; font-family: 'Syne', sans-serif; }
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 1.2rem; font-weight: 800; transition: 0.3s; font-family: 'Syne', sans-serif; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
         nav a:hover { color: #ff0000; }
 
-        /* Mosaïque Murale Totale - Commence tout en haut de la page */
+        /* LA NOUVELLE GRILLE ANTI-VIDE */
         .mosaic-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            grid-auto-rows: 240px;
+            /* L'astuce auto-fit : si la ligne n'est pas finie, on étire les photos pour boucher le noir */
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-auto-rows: 280px; /* Hauteur de base d'une photo */
             grid-auto-flow: dense; 
-            gap: 0; 
+            gap: 0; /* Strictement 0 marge entre les photos */
             width: 100%;
-            padding-top: 0; /* Les photos montent tout en haut derrière le titre */
+            min-height: 100vh;
+            padding: 0; /* On force le padding à 0 pour que les photos montent SOUS le menu */
+            margin: 0;
         }
         
         .item { 
             position: relative; 
-            background-color: #000;
             overflow: visible; 
         }
 
-        /* Tailles asymétriques */
+        /* Variantes pour les grandes photos */
         .item.large-w { grid-column: span 2; }
         .item.large-h { grid-row: span 2; }
         .item.large-both { grid-column: span 2; grid-row: span 2; }
         
+        /* CORRECTION DES BARRES NOIRES */
         .item img { 
             width: 100%; 
             height: 100%; 
-            object-fit: cover; 
+            object-fit: cover; /* Remplit 100% de la case, adieu les barres noires */
+            transform: scale(1.02); /* Léger zoom de sécurité pour cacher un éventuel contour noir d'export */
             transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), z-index 0.3s step-start, box-shadow 0.3s ease;
             position: relative;
             z-index: 1;
             cursor: pointer;
             display: block;
         }
-
-        /* Sécurité anti-barres noires : force un léger zoom sur les images "Stills" qui ont du noir natif */
-        .item img[src*="STILLS"], .item img[src*="00000"] {
-            transform: scale(1.05);
-        }
         
-        /* Effet au survol combiné avec la sécurité */
+        /* Effet au survol */
         .item:hover img { 
             transform: scale(1.15) !important; 
             z-index: 10; 
@@ -79,7 +79,7 @@
         .nav-btn:hover { color: #ff0000; }
 
         @media (max-width: 768px) {
-            .mosaic-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); grid-auto-rows: 140px; }
+            .mosaic-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); grid-auto-rows: 150px; }
             .item.large-w, .item.large-h, .item.large-both { grid-column: span 1; grid-row: span 1; }
             .glitch { font-size: 3em; }
         }
