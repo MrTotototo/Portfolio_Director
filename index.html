@@ -27,7 +27,20 @@
             position: relative; 
             aspect-ratio: 16 / 9; 
             background-color: #000;
+            overflow: hidden; /* Empêche les débordements bizarres */
         }
+        /* Centrage absolu forcé */
+        .item img { 
+            position: absolute; 
+            top: 0; 
+            left: 50%;
+            transform: translateX(-50%); /* Centre parfaitement */
+            height: 100%; 
+            aspect-ratio: 4 / 3; 
+            object-fit: cover; 
+            transition: transform 0.3s ease, z-index 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1;
+            cursor: pointer;
         
         /* L'image est forcée en 4/3 au centre, ce qui crée les barres noires */
         .item img { 
@@ -45,11 +58,12 @@
             cursor: pointer;
         }
         
-        /* Effet de survol */
+        /* Effet de survol corrigé avec le centrage */
         .item:hover img { 
-            transform: scale(1.1); 
+            transform: translateX(-50%) scale(1.1); 
             z-index: 10; 
             box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        
         }
 
         /* Lightbox */
