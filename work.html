@@ -7,13 +7,13 @@
     <style>
         body, html { margin: 0; padding: 0; height: 100%; background: #000; color: #fff; font-family: sans-serif; overflow: hidden; }
         
-        /* Menu identique sur toutes les pages */
         header { 
             position: absolute; 
             top: 0; left: 0; width: 100%;
             text-align: center; 
             padding: 40px 0; 
             z-index: 999; 
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
         }
         .glitch { font-family: 'Syne', sans-serif; font-size: 5em; font-weight: 800; text-transform: uppercase; cursor: pointer; margin: 0 0 10px 0; color: #fff; }
         .glitch:hover { animation: glitch 0.3s infinite; }
@@ -22,25 +22,21 @@
         nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 1.2rem; transition: 0.3s; font-family: 'Syne', sans-serif; }
         nav a:hover { color: #ff0000; }
 
-        /* Conteneur global centré verticalement */
         .work-wrapper {
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow: hidden;
         }
 
-        /* Structure triple-player XXL */
+        /* Viewport très large pour laisser déborder les vidéos latérales */
         .slider-viewport {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            max-width: 2400px; /* Taille maximale accrue pour contenir les bords */
-            gap: 40px;
-            position: relative;
+            width: 100vw;
+            gap: 30px;
         }
 
         .video-box {
@@ -49,24 +45,26 @@
             transition: opacity 0.4s ease;
         }
 
-        /* Taille doublée pour le player principal */
+        /* Player central immense */
         .video-box.main {
-            width: 55%; 
+            width: 65vw; 
+            flex-shrink: 0; /* Empêche l'écrasement */
             opacity: 1;
             z-index: 5;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
 
-        /* Aperçus latéraux grisés */
+        /* Vidéos sur les côtés beaucoup plus grandes */
         .video-box.side {
-            width: 15%; 
-            opacity: 0.15; /* Effet grisé */
-            pointer-events: none; /* Désactive les clics sur les côtés */
+            width: 35vw; 
+            flex-shrink: 0;
+            opacity: 0.2; 
+            pointer-events: none; 
             z-index: 1;
         }
 
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* Flèches de navigation */
         .slide-btn {
             position: absolute;
             top: 50%;
@@ -81,11 +79,11 @@
             transition: 0.3s;
         }
         .slide-btn:hover { color: #ff0000; background: rgba(0, 0, 0, 0.9); }
-        .prev-video { left: 20%; }
-        .next-video { right: 20%; }
+        .prev-video { left: 10%; }
+        .next-video { right: 10%; }
 
         @media (max-width: 1024px) {
-            .video-box.main { width: 85%; }
+            .video-box.main { width: 90vw; }
             .video-box.side { display: none; }
             .prev-video { left: 10px; }
             .next-video { right: 10px; }
@@ -124,12 +122,13 @@
     </div>
 
     <script>
+        /* Les liens incluent la tentative de masquage de l'interface Vimeo */
         const vimeoVideos = [
-            "https://player.vimeo.com/video/1208359041", 
-            "https://player.vimeo.com/video/1208359948", 
-            "https://player.vimeo.com/video/1208359248", 
-            "https://player.vimeo.com/video/1208359340", 
-            "https://player.vimeo.com/video/1208359283"
+            "https://player.vimeo.com/video/1208359041?title=0&byline=0&portrait=0", 
+            "https://player.vimeo.com/video/1208359948?title=0&byline=0&portrait=0", 
+            "https://player.vimeo.com/video/1208359248?title=0&byline=0&portrait=0", 
+            "https://player.vimeo.com/video/1208359340?title=0&byline=0&portrait=0", 
+            "https://player.vimeo.com/video/1208359283?title=0&byline=0&portrait=0"
         ];
 
         let currentVideoIndex = 0;
@@ -148,7 +147,6 @@
             updateSlider();
         }
 
-        // Initialisation au chargement de la page
         window.onload = updateSlider;
     </script>
 
