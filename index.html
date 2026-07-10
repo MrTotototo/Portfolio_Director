@@ -14,7 +14,7 @@
         nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 1.2rem; transition: 0.3s; font-family: 'Syne', sans-serif;}
         nav a:hover { color: #ff0000; }
 
-        /* Belle Mosaïque Multi-colonnes (Photos ajustées et plus compactes) */
+        /* Belle Mosaïque Multi-colonnes (Photos compactes et élégantes) */
         .mosaic-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -28,7 +28,7 @@
             position: relative; 
             aspect-ratio: 16 / 9; 
             background-color: #000;
-            overflow: visible; /* Indispensable pour permettre le débordement au survol */
+            overflow: visible; /* Indispensable pour permettre le zoom au survol */
         }
         
         /* Alignement parfait au format 4/3 centré */
@@ -58,14 +58,19 @@
         #lightbox img { max-width: 85%; max-height: 85%; object-fit: contain; }
         .nav-btn { position: absolute; top: 50%; color: white; font-size: 3em; cursor: pointer; background: none; border: none; padding: 20px; z-index: 1001; transform: translateY(-50%); transition: 0.2s; }
         .nav-btn:hover { color: #ff0000; }
+
+        @media (max-width: 768px) {
+            .mosaic-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; padding: 10px; }
+            .glitch { font-size: 3em; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1 class="glitch" onclick="window.location.href='stills.html'">PORTFOLIO</h1>
+        <h1 class="glitch" onclick="window.location.href='index.html'">PORTFOLIO</h1>
         <nav>
-            <a href="stills.html" style="color:gray;">STILLS</a>
+            <a href="index.html" style="color:gray;">STILLS</a>
             <a href="work.html">WORK</a>
             <a href="contact.html">CONTACT</a>
         </nav>
