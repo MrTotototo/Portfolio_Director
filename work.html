@@ -57,15 +57,16 @@
         @media (max-width: 1200px) {
             .prev-video { left: 10px; }
             .next-video { right: 10px; }
+            .glitch { font-size: 3em; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1 class="glitch" onclick="window.location.href='stills.html'">PORTFOLIO</h1>
+        <h1 class="glitch" onclick="window.location.href='index.html'">PORTFOLIO</h1>
         <nav>
-            <a href="stills.html">STILLS</a>
+            <a href="index.html">STILLS</a>
             <a href="work.html" style="color:gray;">WORK</a>
             <a href="contact.html">CONTACT</a>
         </nav>
@@ -80,13 +81,12 @@
     </div>
 
     <script>
-        // Ta liste ordonnée de vidéos Vimeo
         const vimeoVideos = [
-            "https://player.vimeo.com/video/1208359041", // Vidéo 1
-            "https://player.vimeo.com/video/1208359948", // Vidéo 2
-            "https://player.vimeo.com/video/1208359248", // Vidéo 3 (Pub 5)
-            "https://player.vimeo.com/video/1208359340", // Vidéo 4
-            "https://player.vimeo.com/video/1208359283"  // Vidéo 5
+            "https://player.vimeo.com/video/1208359041", 
+            "https://player.vimeo.com/video/1208359948", 
+            "https://player.vimeo.com/video/1208359248", /* Pub 5 calée en 3ème */
+            "https://player.vimeo.com/video/1208359340", 
+            "https://player.vimeo.com/video/1208359283"
         ];
 
         let currentVideoIndex = 0;
